@@ -5,6 +5,8 @@
 read -p "Enter your name (used in the environment folder name): " name
 maindir="submission_reminder_$name"
 
+SUBMISSIONS_FILE="$maindir/assets/submissions.txt"
+
 # Checking if the directory exists
 
 if [ ! -d "$maindir" ]; then
@@ -20,7 +22,17 @@ read -p "Enter number of days remaining to submit: " days
 # Input validation
 
 if [ -z "$assignment" ] || ! [[ "$days" =~ ^[0-9]+$ ]]; then
-    echo "Invalid input. Assignment must not be empty and days must be a number."
+    echo "Assignment name cannot be empty and the days must be numbers."
+    exit 1
+fi
+
+if ! [[ "$assignment" =~ ^[a-zA-Z\s]+$ ]]; then
+    echo "Assignment name must contain only letters and spaces."
+    exit 1
+fi
+
+if ! grep -iq ", *$assignment," "$SUBMISSIONS_FILE"; then
+    echo " Assignment '$assignment' not found in submissions.txt"
     exit 1
 fi
 
