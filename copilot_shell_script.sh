@@ -24,3 +24,23 @@ if [ -z "$assignment" ] || ! [[ "$days" =~ ^[0-9]+$ ]]; then
     exit 1
 fi
 
+# Update config.env
+
+echo "Updating config.env in $maindir/config/"
+echo "ASSIGNMENT=\"$assignment\"" > "$maindir/config/config.env"
+echo "DAYS_REMAINING=$days" >> "$maindir/config/config.env"
+
+echo "Configuration has been updated:"
+cat "$maindir/config/config.env"
+
+# Ask if they want to start the app
+
+read -p "Would you like to run the reminder app now? (y/n): " choice
+
+if [[ "$choice" =~ ^[Yy]$ ]]; then
+    echo "Starting the app..."
+    bash "$maindir/startup.sh"
+else
+    echo "Reminder app not started. You can run it later using: bash $maindir/startup.sh"
+fi
+
