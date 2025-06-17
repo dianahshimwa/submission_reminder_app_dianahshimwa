@@ -17,13 +17,18 @@ if ! [[ "$name" =~ ^[a-zA-Z\s]+$ ]]; then
     exit 1
 fi
 
+# Adding variables to the directory
+
 maindir="submission_reminder_$name"
+submissions_file="$maindir/assets/submissions.txt"
 
 # Checking if the directory exists
 
 if [ ! -d "$maindir" ]; then
-    echo "Directory '$maindir' is not found. Please run create_environment.sh first."
-    exit 1
+	echo "Directory '$maindir' not found"
+	echo "Please run create_environment.sh."
+	echo "Aborting..."
+	exit 1
 fi
 
 # Ask the user to enter the assignment and days remaining
