@@ -3,9 +3,21 @@
 # Ask the user to enter the directory name
 
 read -p "Enter your name (used in the environment folder name): " name
-maindir="submission_reminder_$name"
 
-SUBMISSIONS_FILE="$maindir/assets/submissions.txt"
+if [ -z "$name" ]; then
+	echo "Please enter your name."
+	echo "-------------------------"
+	echo "Aborting..."
+	exit 1
+fi
+if ! [[ "$name" =~ ^[a-zA-Z\s]+$ ]]; then
+    echo "The Assignment name must contain."
+    echo "only letters and spaces."
+    echo "Aborting..."
+    exit 1
+fi
+
+maindir="submission_reminder_$name"
 
 # Checking if the directory exists
 
