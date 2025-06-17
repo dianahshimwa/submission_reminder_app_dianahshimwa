@@ -4,22 +4,41 @@
 
 read -p "Please enter your name: " name
 
+# Checking if the name is not empty
+
 if [ -z "$name" ]; then
-	echo "You must enter a name"
-	continue
+	echo "Please enter a name."
+	echo "---------------------------"
+	echo "Aborting..."
+	echo "--- --- --- --- --- --- ---"
+	exit 1
 fi
 
-# Creating the main directory
+# Checking if the name is not a number
+
+if ! [[ "$name" =~ ^[a-zA-Z\s]+$ ]]; then
+    echo "The inputed name must contain."
+    echo "only letters and spaces."
+    echo "Aborting..."
+    exit 1
+fi
+
+# Creating the folder
 
 maindir="submission_reminder_$name"
 
 if [ -d "$maindir" ]; then
-	echo "Directory already exists"
+	echo "Directory already exists."
+	echo "-------------------------"
+	echo "Aborting"
+	echo "-------------------------"
 	exit 1
-else	
-        mkdir -p "$maindir"
-        echo "Directory was created"  	
-
+else
+	mkdir -p "$maindir"
+	echo "The directory was created successfully."
+	echo "---------------------------------------"
+	echo "Proceeding to finalising the environment" 
+	echo "inside.................................."
 fi
 
 # Creating subdirectories and files
